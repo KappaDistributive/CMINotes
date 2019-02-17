@@ -1,0 +1,186 @@
+\documentclass[12pt,a4paper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc} 
+\usepackage{amssymb}
+\usepackage[shortlabels]{enumitem}
+\usepackage{faktor} 
+\usepackage{fancyhdr}
+\usepackage{todonotes}
+\usepackage{amsmath}
+\usepackage{hyperref}
+% \usepackage[capitalize,nameinlink]{cleveref}
+\usepackage{amsthm}
+% \usepackage[backend=bibtex,style=verbose-trad2]{biblatex}
+
+% Theorem Environments
+\theoremstyle{nicestyle}
+\newtheorem{theorem}{Theorem}[subsection]
+\providecommand*{\theoremautorefname}{Theorem}
+\newtheorem{exercise}[theorem]{Exercise}
+\providecommand*{\exerciseautorefname}{Exercise}
+\newtheorem{definition}[theorem]{Definition}
+\providecommand*{\definitionautorefname}{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+\providecommand*{\lemmaautorefname}{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\providecommand*{\propositionautorefname}{Propositon}
+\newtheorem{corollary}[theorem]{Corollary}
+\providecommand*{\corollaryautorefname}{Corollary}
+\newtheorem{claim}[theorem]{Claim}
+\providecommand*{\claimautorefname}{Claim}
+\newtheorem{subclaim}[theorem]{Subclaim}
+\providecommand*{\subclaimautorefname}{Subclaim}
+\newtheorem{convention}[theorem]{Convention}
+\providecommand*{\conventionautorefname}{Convention}
+\newtheorem{remark}[theorem]{Remark}
+\providecommand*{\remarkautorefname}{Remark}
+\newtheorem{fact}[theorem]{Fact}
+\providecommand*{\factautorefname}{Fact}
+\newtheorem{example}[theorem]{Example}
+\providecommand*{\exampleautorefname}{Example}
+\newtheorem{notation}[theorem]{Notation}
+\providecommand*{\notationautorefname}{Notation}
+\newtheorem{question}[theorem]{Question}
+\providecommand*{\questionautorefname}{Question}
+
+\newtheorem*{exercise*}{Exercise}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{claim*}{Claim} 
+\newtheorem*{subclaim*}{Subclaim}
+\newtheorem*{convention*}{Convention}
+
+% Proofblack
+\newenvironment{proofblack}{\begin{proof}}
+  {\renewcommand{\qedsymbol}{$\blacksquare$}\end{proof}}
+
+% Math Operators
+\DeclareMathOperator{\card}{card}
+\DeclareMathOperator{\Col}{Col}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\HC}{HC}
+\DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator{\rank}{rank} 
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\ord}{Ord}
+\DeclareMathOperator{\limit}{Lim} 
+\DeclareMathOperator{\zfc}{ZFC}
+\DeclareMathOperator{\zf}{ZF}
+\DeclareMathOperator{\dc}{DC} 
+\DeclareMathOperator{\tc}{tc}
+\DeclareMathOperator{\rk}{rk} 
+\DeclareMathOperator{\cf}{cf}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\fn}{Fn}
+\DeclareMathOperator{\ult}{Ult}
+\DeclareMathOperator{\rS}{r \Sigma}
+\DeclareMathOperator{\coll}{Coll}
+\DeclareMathOperator{\crit}{crit}
+\DeclareMathOperator{\trcl}{trcl}
+\DeclareMathOperator{\lh}{lh}
+\DeclareMathOperator{\wfp}{wfp}
+\DeclareMathOperator{\hull}{Hull}
+\DeclareMathOperator{\otp}{otp}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\lex}{lex}
+\DeclareMathOperator{\length}{lh}
+\DeclareMathOperator{\gch}{GCH}
+\DeclareMathOperator{\rud}{rud}
+\DeclareMathOperator{\Lp}{Lp}
+
+\begin{document}
+\author{Stefan Mesken}
+\title{Notes on ``The Core Model Induction''}
+\maketitle
+
+\section{The Successor Case}
+
+\setcounter{subsection}{3}
+\subsection{Capturing, Correctness and Genericity Iterations}
+
+\setcounter{theorem}{4}
+\begin{exercise}
+  Suppose that $(\mathcal{M}, \Sigma)$ absorbs reals at $\delta$ and
+  $\mathcal{M} \models \zfc^{-} \wedge \delta^{+} \text{
+    exists}$. Then $\delta$ is either Woodin or a limit of Woodins in
+  $\mathcal{M}$.
+\end{exercise}
+
+\begin{proof}
+  By taking a countable hull
+  \[
+    \sigma \colon \mathcal{N} \prec \mathcal{M}
+  \]
+  of $\mathcal{M}$ and considering $(\mathcal{N}, \Sigma^{\sigma})$ we
+  may and shall assume that $\mathcal{M}$ is countable. Let
+  $x \in \mathbb{R}$ code $\mathcal{M}$ and suppose that $\delta$ is
+  neither Woodin nor a limit of Woodins in $\mathcal{M}$.
+
+  \begin{claim*}
+    $\delta$ is a limit of measurable cardinals in $\mathcal{M}$.
+  \end{claim*}
+
+  \begin{proofblack}
+    Otherwise let $\kappa$ be the largest cardinal below $\delta$, let
+    $\eta = \kappa + 1$. Then there is no iteration above $\eta$ that
+    absorbs a real coding $o(M)$.
+  \end{proofblack}
+
+  We may hence fix $\eta < \delta$ inaccessible (or measurable) in
+  $\mathcal{M}$ such that
+  \[
+    \mathcal{M} \models \forall \xi \in [\eta, \delta] \colon \xi
+    \text{ is not Woodin}.
+  \]
+  Let $\mathcal{T} \in \mathcal{M}$ be the linear iteration of
+  $\mathcal{M}$ that applies the least measure of $\mathcal{M}$
+  $\eta$-many times. Let $\kappa$ be the least measureable cardinal of
+  $\mathcal{M}$. Note that $i^{\mathcal{T}}_{\eta} \in \mathcal{M}$
+  and $i^{\mathcal{T}}(\kappa) = \eta$. \\
+  Let $\delta^{*} \le \delta$ be minimal such that for every real $y$
+  there is some iteration tree $\mathcal{U}$ on
+  $\mathcal{M}^{\mathcal{T}}_{\eta}$ that lives on
+  $(\eta, i^{\mathcal{T}}(\delta))$ and absorbs $y$. \\
+  In $V$ fix $(\xi_{n} \mid n < \omega)$ cofinal in $\delta^{*}$ and
+  for every $n$ fix some real $x_{n}$ such that $x_{n}$ cannot be
+  absorbed by a tree living below $\xi_{n}$. Now let
+  \[
+    z = x \oplus \bigoplus_{n < \omega} x_{n}.
+  \]
+  Notice that any iteration that absorbs $z$ must use unboundedly long
+  extenders below $\delta^{*}$. Let $\mathcal{U}$ be such an iteration
+  tree. Since $\mathcal{M}$ has no Woodin cardinals in the interval
+  $[\eta, \delta]$, $\mathcal{U}$ is guided by
+  $\mathcal{Q}$-structures in $\mathcal{M}$, so that $\mathcal{U}$ and
+  $i^{\mathcal{U}}$ are in fact members of $\mathcal{M}$. \footnote{It
+    is here that we use that
+    $\mathcal{M} \models \zfc^{-} \wedge \delta^{+} \text{ exists}$.}
+  Let $g$ be
+  $\coll(\omega,i^{\mathcal{U}} \circ i^{\mathcal{T}})$-generic such
+  that $z \in \mathcal{M}^{\mathcal{U}}_{\infty}[g]$. Since $x$ codes
+  $\mathcal{M}$ and $x \le_{T} z$, we have
+  $\mathcal{M} \in \mathcal{M}^{\mathcal{U}}_{\infty}[g]$ and hence
+  $i^{\mathcal{U}} \restriction (\delta^{*})^{+\mathcal{M}} \in
+  \mathcal{M}^{\mathcal{U}}_{\infty}[g]$. But
+  $i^{\mathcal{U}} \restriction
+  (\delta^{*})^{+\mathcal{M}}$ is cofinal in
+  $i^{\mathcal{U}}(\delta^{*})^{+
+    \mathcal{M}^{\mathcal{U}}_{\infty}}$, so that
+  \[
+    \mathcal{M}^{\mathcal{U}}_{\infty}[g] \models i^{\mathcal{U}}(\delta^{*})^{+
+    \mathcal{M}^{\mathcal{U}}_{\infty}} \text{ is singular}.
+  \]
+  Since $i^{\mathcal{U}}(\delta^{*})^{+ \mathcal{M}^{\mathcal{U}}_{\infty}}$ is
+    regular in $\mathcal{M}^{\mathcal{U}}_{\infty}$ and
+    $\coll(\omega, i^{\mathcal{U}}(\delta^{*}))$ has the
+    $i^{\mathcal{U}}(\delta^{*})^{+}$-c.c., this is a contradiction!
+\end{proof}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
